@@ -10,12 +10,7 @@ class TuitionInvoice(models.Model):
     invoice_date = fields.Date(string='Invoice Date', default=fields.Date.today())
     amount_total = fields.Monetary(string='Total Amount')
     currency_id = fields.Many2one('res.currency', string='Currency')
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('open', 'Open'),
-        ('paid', 'Paid'),
-        ('cancelled', 'Cancelled')
-    ], default='draft')
+    state = fields.Selection([ ('draft', 'Draft'), ('open', 'Open'), ('paid', 'Paid'),('cancelled', 'Cancelled') ], default='draft')
 
     # Optional: Sharing token for portal access
     portal_token = fields.Char(string="Portal Token", copy=False)
@@ -42,8 +37,4 @@ class TuitionInvoice(models.Model):
         self.state = 'paid'
         # Optional: Notify student via email or portal
         portal_url = self.generate_portal_url()
-        self.message_post(
-            body=f"Your invoice <b>{self.id}</b> has been marked as paid. You can view it here: {portal_url}",
-            subject="Invoice Paid",
-            message_type='notification'
-        )
+        self.message_post( body=f"Your invoice <b>{self.id}</b> has been marked as paid. You can view it here: {portal_url}", subject="Invoice Paid",message_type='notification')
