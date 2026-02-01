@@ -26,12 +26,7 @@ class CrmLead(models.Model):
             self.utm_content = content
 
         # Optional: Post message in chatter
-        self.message_post(
-            body=f"UTM data updated: Source={self.utm_source}, Medium={self.utm_medium}, "
-                 f"Campaign={self.utm_campaign}, Content={self.utm_content}",
-            subject="UTM Update",
-            message_type='notification'
-        )
+        self.message_post(body=f"UTM data updated: Source={self.utm_source}, Medium={self.utm_medium}, " f"Campaign={self.utm_campaign}, Content={self.utm_content}", subject="UTM Update", message_type='notification')
 
     def get_utm_summary(self):
         """Return a dictionary summarizing the UTM tracking info"""
