@@ -17,13 +17,7 @@ class Course(models.Model):
         comment: optional text feedback
         """
         self.ensure_one()
-        rating = self.env['rating.rating'].create({
-            'res_model': self._name,
-            'res_id': self.id,
-            'rating': rating_value,
-            'partner_id': student_id,
-            'message': comment,
-        })
+        rating = self.env['rating.rating'].create({'res_model': self._name, 'res_id': self.id, 'rating': rating_value, 'partner_id': student_id,'message': comment,})
 
         # Optional: Post a message in chatter
         msg = f"New rating submitted: {rating_value}/5"
