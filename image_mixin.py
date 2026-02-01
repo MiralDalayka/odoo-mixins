@@ -25,11 +25,7 @@ class Course(models.Model):
         self._compute_images()
 
         # Optional: Notify in chatter
-        self.message_post(
-            body=f"Course <b>{self.name}</b> image has been updated.",
-            subject="Course Image Updated",
-            message_type='notification'
-        )
+        self.message_post( body=f"Course <b>{self.name}</b> image has been updated.", subject="Course Image Updated", message_type='notification')
 
     def get_course_thumbnail(self, size='128'):
         """
