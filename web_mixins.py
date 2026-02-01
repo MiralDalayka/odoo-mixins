@@ -18,21 +18,13 @@ class Course(models.Model):
         """Publish the course on the website"""
         self.ensure_one()
         self.toggle_publish()  # Switch the published state to visible
-        self.message_post(
-            body=f"Course <b>{self.name}</b> has been published on the website.",
-            subject="Course Published",
-            message_type='notification'
-        )
+        self.message_post( body=f"Course <b>{self.name}</b> has been published on the website.", subject="Course Published", message_type='notification')
 
     def unpublish_course(self):
         """Unpublish the course from the website"""
         self.ensure_one()
         self.toggle_publish()  # Switch the published state to invisible
-        self.message_post(
-            body=f"Course <b>{self.name}</b> has been unpublished from the website.",
-            subject="Course Unpublished",
-            message_type='notification'
-        )
+        self.message_post( body=f"Course <b>{self.name}</b> has been unpublished from the website.", subject="Course Unpublished", message_type='notification' )
 
     def get_course_url(self):
         """Return the public website URL for the course"""
