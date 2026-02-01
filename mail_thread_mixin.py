@@ -7,12 +7,7 @@ class EnrollmentRequest(models.Model):
 
     student_id = fields.Many2one('res.partner', string='Student', required=True, tracking=True)
     course_id = fields.Many2one('college.course', string='Course', required=True, tracking=True)
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('submitted', 'Submitted'),
-        ('approved', 'Approved'),
-        ('rejected', 'Rejected')
-    ], default='draft', tracking=True)
+    state = fields.Selection([('draft', 'Draft'),('submitted', 'Submitted'),('approved', 'Approved'),('rejected', 'Rejected')], default='draft', tracking=True)
 
     request_date = fields.Date(string='Request Date', default=fields.Date.today())
 
@@ -28,29 +23,17 @@ class EnrollmentRequest(models.Model):
     def submit_request(self):
         self.state = 'submitted'
         # Post a message to the chatter
-        self.message_post(
-            body=f"Enrollment request for course <b>{self.course_id.name}</b> submitted by {self.student_id.name}.",
-            subject="Request Submitted",
-            message_type='notification'
-        )
+        self.message_post(body=f"Enrollment request for course <b>{self.course_id.name}</b> submitted by {self.student_id.name}.", subject="Request Submitted", message_type='notification')
 
     def approve_request(self):
         self.state = 'approved'
         # Post a message to the chatter
-        self.message_post(
-            body=f"Enrollment request for course <b>{self.course_id.name}</b> approved.",
-            subject="Request Approved",
-            message_type='notification'
-        )
+        self.message_post( body=f"Enrollment request for course <b>{self.course_id.name}</b> approved.", subject="Request Approved", message_type='notification' )
 
     def reject_request(self, reason):
         self.state = 'rejected'
         # Post a message to the chatter
-        self.message_post(
-            body=f"Enrollment request for course <b>{self.course_id.name}</b> rejected. Reason: {reason}",
-            subject="Request Rejected",
-            message_type='notification'
-        )
+        self.message_post(body=f"Enrollment request for course <b>{self.course_id.name}</b> rejected. Reason: {reason}", subject="Request Rejected", message_type='notification')
 
     def add_student_to_followers(self, partner_id):
         # Subscribe a partner (e.g., Registrar staff) to receive chatter notifications
